@@ -7,11 +7,14 @@ app.use(cors());
 
 // jobs route
 const jobsRoute = require("./routes/jobs.route");
+//Users Route
+const usersRoute = require("./routes/users.route");
 
 app.get("/", (req, res) => {
   res.send("server is running");
 });
 
 app.use("/api/v1/", jobsRoute);
+app.use("/api/v1/user", usersRoute);
 
 module.exports = app;
