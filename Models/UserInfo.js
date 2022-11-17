@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 
 const UserInfoSchema = mongoose.Schema({
   name: {
     type: String,
-    minLength: 6,
+    minLength: [6, "Please provide give six or grater then cacter"],
   },
   email: {
     type: String,
@@ -23,6 +23,7 @@ const UserInfoSchema = mongoose.Schema({
   role: {
     type: String,
     enum: ["admin", "manager", "candidate"],
+    default: "candidate",
     trim: true,
   },
   number: {
@@ -39,6 +40,8 @@ const UserInfoSchema = mongoose.Schema({
   },
 });
 
+// hashing the password
+
 UserInfoSchema.pre("save", function (next) {
   const password = this.password;
 
@@ -46,6 +49,13 @@ UserInfoSchema.pre("save", function (next) {
   this.password = hashedPassword;
   next();
 });
+
+// check password valid or not
+
+UserInfoSchema.methods.comparePassword = (password, hash) => {
+  const isValidPassword = bcrypt.compareSync(password, hash);
+  return isValidPassword;
+};
 
 const UserInfo = mongoose.model("UserInfo", UserInfoSchema, "UserInfo");
 
