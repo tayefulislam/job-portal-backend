@@ -44,7 +44,7 @@ exports.loginUser = async (req, res, next) => {
     }
 
     // check user exsit in database
-    if (!isUser.email === email) {
+    if (!isUser) {
       return res.status(401).json({
         status: "failed",
         message: "User not found",
