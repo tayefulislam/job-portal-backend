@@ -1,6 +1,7 @@
 const {
   createUserService,
   isUserService,
+  getAllUserService,
 } = require("../Services/Users.Service");
 
 const bcrypt = require("bcryptjs");
@@ -74,6 +75,22 @@ exports.loginUser = async (req, res, next) => {
       status: "failed",
       message: "failed to login",
       error: error.message,
+    });
+  }
+};
+
+exports.getAllUser = async (req, res) => {
+  try {
+    const result = await getAllUserService();
+
+    res.status(200).json({
+      status: "success",
+      result: result,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      result,
     });
   }
 };

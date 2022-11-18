@@ -49,8 +49,15 @@ const JobInfoSchema = mongoose.Schema(
       required: true,
     },
     managerId: {
-      type: ObjectId,
-      ref: "Managers",
+      name: {
+        type: String,
+        required: true,
+      },
+
+      id: {
+        type: ObjectId,
+        ref: "UserInfo",
+      },
     },
   },
   {

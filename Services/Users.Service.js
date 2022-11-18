@@ -9,3 +9,8 @@ exports.isUserService = async (email) => {
   const result = await UserInfo.findOne({ email: email });
   return result;
 };
+
+exports.getAllUserService = async () => {
+  const result = await UserInfo.find({});
+  return result;
+};
