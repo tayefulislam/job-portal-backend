@@ -5,3 +5,8 @@ exports.createJobService = async (job) => {
   console.log("helo");
   return result;
 };
+
+exports.managerJobsService = async (id) => {
+  const result = await JobInfo.find({ managerId: { id: id } });
+  return result;
+};
