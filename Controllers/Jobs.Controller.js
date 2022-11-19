@@ -18,3 +18,15 @@ exports.createJob = async (req, res) => {
     });
   }
 };
+
+exports.managerJobs = async (req, res) => {
+  try {
+    const id = "";
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "Failed to load data",
+      error: error.message,
+    });
+  }
+};
