@@ -5,7 +5,16 @@ const router = express.Router();
 const JobsController = require("../Controllers/Jobs.Controller");
 const { verifyToken } = require("../middlewares/verifyToken");
 
-router.route("/jobs").post(JobsController.createJob);
+// mamager and candidate route
+router
+  .route("/jobs")
+  .post(JobsController.createJob)
+  .get(JobsController.getAllJobs);
+
+// manager routes
 router.route("/manager/jobs").get(verifyToken, JobsController.managerJobs);
+router
+  .route("/manager/jobs/:id")
+  .get(verifyToken, JobsController.managerJobById);
 
 module.exports = router;

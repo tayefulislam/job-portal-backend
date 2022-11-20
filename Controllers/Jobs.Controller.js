@@ -1,6 +1,8 @@
 const {
   createJobService,
   managerJobsService,
+  managerJobByIdService,
+  getAllJobsService,
 } = require("../Services/Jobs.Service");
 
 exports.createJob = async (req, res) => {
@@ -31,6 +33,43 @@ exports.managerJobs = async (req, res) => {
       status: "success",
       message: "getting jobs data successful",
       result: jobs,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "Failed to load data",
+      error: error.message,
+    });
+  }
+};
+
+exports.managerJobById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const job = await managerJobByIdService(id);
+    res.status(200).json({
+      status: "success",
+      message: "getting jobs data successful",
+      result: job,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "Failed to load data",
+      error: error.message,
+    });
+  }
+};
+
+// candidate
+exports.getAllJobs = async (req, res) => {
+  try {
+    const job = await getAllJobsService();
+    res.status(200).json({
+      status: "success",
+      message: "getting jobs data successful",
+      result: job,
     });
   } catch (error) {
     res.status(401).json({

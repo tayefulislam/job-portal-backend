@@ -11,3 +11,15 @@ exports.managerJobsService = async (id) => {
   const result = await JobInfo.find({ "managerId.id": id });
   return result;
 };
+
+exports.managerJobByIdService = async (id) => {
+  const result = await JobInfo.find({ _id: id }).sort({ _id: -1 });
+
+  return result;
+};
+
+exports.getAllJobsService = async () => {
+  const result = await JobInfo.find({}).sort({ _id: -1 });
+
+  return result;
+};
