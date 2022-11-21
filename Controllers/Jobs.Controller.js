@@ -4,6 +4,8 @@ const {
   managerJobByIdService,
   getAllJobsService,
   getJobDetailsByIdService,
+  applyInAJobService,
+  checkDuplicateApply,
 } = require("../Services/Jobs.Service");
 
 exports.createJob = async (req, res) => {
@@ -88,6 +90,60 @@ exports.getJobDetailsById = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "successfully fetch data",
+      result,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "failed to load fetch data",
+      error: error.message,
+    });
+  }
+};
+
+exports.applyInAJob = async (req, res) => {
+  try {
+    const { id: userID } = req.user;
+    const { id: jobID } = req.params;
+
+    const { allCandidate, isApplied } = await checkDuplicateApply(
+      jobID,
+      userID
+    );
+
+    const { deadlineEnd, deadlineStart } = allCandidate[0];
+
+    const deadlineStartUnix = deadlineStart;
+    const deadlineEndUnix = deadlineEnd.valueOf();
+    const currentDate = new Date().valueOf();
+
+    console.log("hello", currentDate);
+
+    if (isApplied) {
+      return res.status(401).json({
+        status: "failed",
+        message: "already applied",
+      });
+    }
+
+    if (deadlineStartUnix > currentDate) {
+      return res.status(401).json({
+        status: "failed",
+        message: "don't start yet",
+      });
+    }
+
+    if (deadlineEndUnix < currentDate) {
+      return res.status(401).json({
+        status: "failed",
+        message: "Time is up. Please try again leter",
+      });
+    }
+
+    const result = await applyInAJobService(jobID, userID);
+    res.status(200).json({
+      status: "success",
+      message: "successfully apply",
       result,
     });
   } catch (error) {

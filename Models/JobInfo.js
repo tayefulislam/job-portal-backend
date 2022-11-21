@@ -48,17 +48,21 @@ const JobInfoSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    managerId: {
-      name: {
-        type: String,
-        required: true,
-      },
-
-      id: {
-        type: ObjectId,
-        ref: "UserInfo",
-      },
+    deadlineStart: {
+      type: Date,
+      required: true,
     },
+    deadlineEnd: {
+      type: Date,
+      required: true,
+    },
+    managerId: {
+      type: ObjectId,
+      ref: "UserInfo",
+    },
+    applicants: [
+      { type: ObjectId, index: true, unique: true, ref: "UserInfo" },
+    ],
   },
   {
     timestamps: true,

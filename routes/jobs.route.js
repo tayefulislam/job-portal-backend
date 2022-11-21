@@ -13,6 +13,7 @@ router
   .get(JobsController.getAllJobs);
 
 // candidate route
+router.route("/jobs/:id/apply").get(verifyToken, JobsController.applyInAJob);
 router.route("/jobs/:id").get(JobsController.getJobDetailsById);
 
 // manager routes
