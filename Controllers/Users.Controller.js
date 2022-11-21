@@ -90,7 +90,8 @@ exports.getAllUser = async (req, res) => {
   } catch (error) {
     res.status(401).json({
       status: "failed",
-      result,
+      message: "failed to load fetch data",
+      error: error.message,
     });
   }
 };

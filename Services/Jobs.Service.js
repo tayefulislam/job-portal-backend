@@ -26,5 +26,8 @@ exports.getAllJobsService = async () => {
 };
 
 exports.getJobDetailsByIdService = async (id) => {
-  const result = await JobInfo.findById({ _id: id }).populate("UserInfo");
+  console.log(id);
+  const result = await JobInfo.findById({ _id: id }).populate("managerId.id");
+  console.log(result);
+  return result;
 };
