@@ -18,8 +18,13 @@ exports.managerJobByIdService = async (id) => {
   return result;
 };
 
+// candidate services
 exports.getAllJobsService = async () => {
   const result = await JobInfo.find({}).sort({ _id: -1 });
 
   return result;
+};
+
+exports.getJobDetailsByIdService = async (id) => {
+  const result = await JobInfo.findById({ _id: id }).populate("UserInfo");
 };
