@@ -14,7 +14,12 @@ router
 
 // candidate route
 router.route("/jobs/:id/apply").get(verifyToken, JobsController.applyInAJob);
-router.route("/jobs/:id").get(JobsController.getJobDetailsById);
+
+// candidate and manager route
+router
+  .route("/jobs/:id")
+  .get(JobsController.getJobDetailsById)
+  .patch(JobsController.managerUpdateJobDetails);
 
 // manager routes
 router.route("/manager/jobs").get(verifyToken, JobsController.managerJobs);

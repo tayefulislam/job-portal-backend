@@ -21,6 +21,11 @@ exports.managerJobByIdService = async (id) => {
   return result;
 };
 
+exports.managerUpdateJobDetailsService = async (id, updateData) => {
+  const result = await JobInfo.updateOne({ _id: id }, updateData);
+  return result;
+};
+
 // candidate services
 exports.getAllJobsService = async () => {
   const result = await JobInfo.find({}).sort({ _id: -1 });

@@ -6,6 +6,7 @@ const {
   getJobDetailsByIdService,
   applyInAJobService,
   checkDuplicateApply,
+  managerUpdateJobDetailsService,
 } = require("../Services/Jobs.Service");
 
 exports.createJob = async (req, res) => {
@@ -60,6 +61,26 @@ exports.managerJobById = async (req, res) => {
     res.status(401).json({
       status: "failed",
       message: "Failed to load data",
+      error: error.message,
+    });
+  }
+};
+
+exports.managerUpdateJobDetails = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateData = req.body;
+
+    const result = await managerUpdateJobDetailsService(id, updateData);
+    res.status(200).json({
+      status: "success",
+      message: "Data Update Successfully",
+      result,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "failed to update data",
       error: error.message,
     });
   }
