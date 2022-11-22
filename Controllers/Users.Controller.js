@@ -2,6 +2,7 @@ const {
   createUserService,
   isUserService,
   getAllUserService,
+  getMeService,
 } = require("../Services/Users.Service");
 
 const bcrypt = require("bcryptjs");
@@ -90,6 +91,23 @@ exports.getAllUser = async (req, res) => {
       status: "failed",
       message: "failed to load fetch data",
       error: error.message,
+    });
+  }
+};
+
+exports.getMe = async (req, res) => {
+  const { email } = req.user;
+  const user = await getMeService(email);
+  try {
+    res.status(200).json({
+      status: "success",
+      message: "successfully get data",
+      user,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "error",
     });
   }
 };

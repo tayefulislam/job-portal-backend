@@ -14,7 +14,9 @@ exports.managerJobsService = async (id) => {
 };
 
 exports.managerJobByIdService = async (id) => {
-  const result = await JobInfo.find({ _id: id }).sort({ _id: -1 });
+  const result = await JobInfo.find({ _id: id })
+    .populate("applicants")
+    .sort({ _id: -1 });
 
   return result;
 };

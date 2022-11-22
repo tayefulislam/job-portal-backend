@@ -14,3 +14,8 @@ exports.getAllUserService = async () => {
   const result = await UserInfo.find({});
   return result;
 };
+
+exports.getMeService = async (email) => {
+  const user = await UserInfo.findOne({ email: email });
+  return user;
+};
