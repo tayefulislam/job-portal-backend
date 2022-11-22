@@ -27,8 +27,10 @@ exports.managerUpdateJobDetailsService = async (id, updateData) => {
 };
 
 // candidate services
-exports.getAllJobsService = async () => {
-  const result = await JobInfo.find({}).sort({ _id: -1 });
+exports.getAllJobsService = async (query) => {
+  console.log(query);
+
+  const result = await JobInfo.find(query).sort({ _id: -1 });
 
   return result;
 };

@@ -89,7 +89,26 @@ exports.managerUpdateJobDetails = async (req, res) => {
 // candidate
 exports.getAllJobs = async (req, res) => {
   try {
-    const job = await getAllJobsService();
+    const { location, jobType, salary, sort } = req.query;
+    const query = {};
+    // console.log(query);
+
+    const sortBy = sort.split(",").join(" ");
+
+    if (location) {
+      query.location = location;
+    }
+    if (jobType) {
+      query.jobType = jobType;
+    }
+    if (salary) {
+      query.salary = { $gt: salary };
+    }
+
+    if (sortBy) {
+      query.sort = sortBy;
+    }
+    const job = await getAllJobsService(query);
     res.status(200).json({
       status: "success",
       message: "getting jobs data successful",
