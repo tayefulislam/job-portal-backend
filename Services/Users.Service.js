@@ -19,3 +19,10 @@ exports.getMeService = async (email) => {
   const user = await UserInfo.findOne({ email: email });
   return user;
 };
+
+// extra route
+
+exports.getAllManagerService = async () => {
+  const result = await UserInfo.find({ role: "manager" }).sort({ _id: -1 });
+  return result;
+};

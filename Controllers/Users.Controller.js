@@ -3,6 +3,7 @@ const {
   isUserService,
   getAllUserService,
   getMeService,
+  getAllManagerService,
 } = require("../Services/Users.Service");
 
 const bcrypt = require("bcryptjs");
@@ -108,6 +109,25 @@ exports.getMe = async (req, res) => {
     res.status(401).json({
       status: "failed",
       message: "error",
+    });
+  }
+};
+
+// extra route
+
+exports.getAllManager = async (req, res) => {
+  try {
+    const result = await getAllManagerService();
+    res.status(200).json({
+      status: "success",
+      message: "successfully load data",
+      result,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "faild to load data",
+      error: error.message,
     });
   }
 };

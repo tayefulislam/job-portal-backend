@@ -105,10 +105,7 @@ exports.getAllJobs = async (req, res) => {
       query.salary = { $gt: salary };
     }
 
-    if (sortBy) {
-      query.sort = sortBy;
-    }
-    const job = await getAllJobsService(query);
+    const job = await getAllJobsService(query, sortBy);
     res.status(200).json({
       status: "success",
       message: "getting jobs data successful",
