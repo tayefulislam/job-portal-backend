@@ -1,3 +1,4 @@
+const { ReturnDocument } = require("mongodb");
 const JobInfo = require("../Models/JobInfo");
 
 exports.createJobService = async (job) => {
@@ -71,3 +72,11 @@ exports.applyInAJobService = async (id, userID) => {
 
   return result;
 };
+
+// extra route
+
+// exports.topAppliedJobsService = async () => {
+//   console.log("hello");
+//   const result = await JobInfo.find({'applicants':});
+//   return result;
+// };

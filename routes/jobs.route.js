@@ -12,6 +12,9 @@ router
   .post(JobsController.createJob)
   .get(JobsController.getAllJobs);
 
+// extra
+
+router.route("/jobs/topApplied").get(JobsController.topAppliedJobs);
 // candidate route
 router.route("/jobs/:id/apply").get(verifyToken, JobsController.applyInAJob);
 

@@ -7,6 +7,7 @@ const {
   applyInAJobService,
   checkDuplicateApply,
   managerUpdateJobDetailsService,
+  topAppliedJobsService,
 } = require("../Services/Jobs.Service");
 
 exports.createJob = async (req, res) => {
@@ -181,6 +182,25 @@ exports.applyInAJob = async (req, res) => {
     res.status(200).json({
       status: "success",
       message: "successfully apply",
+      result,
+    });
+  } catch (error) {
+    res.status(401).json({
+      status: "failed",
+      message: "failed to load fetch data",
+      error: error.message,
+    });
+  }
+};
+
+// extra route
+
+exports.topAppliedJobs = async (req, res) => {
+  try {
+    const result = await topAppliedJobsService();
+    res.status(200).json({
+      status: "success",
+      message: "successfully fetch data",
       result,
     });
   } catch (error) {
